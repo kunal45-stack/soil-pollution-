@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soil Pollution Awareness</title>
+  <meta name="description" content="A modern educational website about soil pollution, its causes, effects, and solutions." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root{
+      --bg: #f5f8f2;
+      --bg-soft: #edf4e8;
+      --card: rgba(255,255,255,0.82);
+      --text: #1f2d1d;
+      --muted: #5c6f58;
+      --primary: #2e7d32;
+      --primary-2: #4caf50;
+      --accent: #8d6e63;
+      --accent-2: #a1887f;
+      --border: rgba(46,125,50,0.12);
+      --shadow: 0 10px 30px rgba(31,45,29,0.10);
+      --hero-overlay: linear-gradient(135deg, rgba(18, 53, 24, 0.75), rgba(78, 52, 46, 0.55));
+    }
+
+    body.dark{
+      --bg: #101710;
+      --bg-soft: #162017;
+      --card: rgba(25, 35, 26, 0.82);
+      --text: #edf7ea;
+      --muted: #b7c8b0;
+      --primary: #7ed957;
+      --primary-2: #52b76b;
+      --accent: #c49a6c;
+      --accent-2: #9c7c5e;
+      --border: rgba(126,217,87,0.14);
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --hero-overlay: linear-gradient(135deg, rgba(7, 20, 9, 0.82), rgba(46, 31, 23, 0.65));
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height:1.6;
+      overflow-x:hidden;
+      transition: background 0.35s ease, color 0.35s ease;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .container{
+      width:min(1120px, 92%);
+      margin:auto;
+    }
+
+    .section{
+      padding:90px 0;
+      position:relative;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:18px;
+      font-size:clamp(1.8rem, 3vw, 2.8rem);
+      color:var(--text);
+    }
+
+    .section-subtitle{
+      text-align:center;
+      max-width:780px;
+      margin:0 auto 50px;
+      color:var(--muted);
+      font-size:1rem;
+    }
+
+    .badge{
+      display:inline-block;
+      background:rgba(76, 175, 80, 0.12);
+      color:var(--primary);
+      border:1px solid var(--border);
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:0.9rem;
+      font-weight:600;
+      margin-bottom:16px;
+    }
+
+    .navbar{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      z-index:1000;
+      transition:all 0.3s ease;
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+
+    body.dark .navbar{
+      background:rgba(16,23,16,0.45);
+    }
+
+    .navbar.scrolled{
+      background:rgba(245,248,242,0.92);
+      box-shadow:0 8px 24px rgba(0,0,0,0.08);
+      border-bottom:1px solid var(--border);
+    }
+
+    body.dark .navbar.scrolled{
+      background:rgba(16,23,16,0.92);
+    }
+
+    .nav-wrap{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      min-height:72px;
+    }
+
+    .logo{
+      font-size:1.2rem;
+      font-weight:800;
+      color:#fff;
+      letter-spacing:0.4px;
+    }
+
+    .navbar.scrolled .logo{
+      color:var(--primary);
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      color:#fff;
+      font-weight:500;
+      font-size:0.95rem;
+      position:relative;
+      transition:0.25s ease;
+    }
+
+    .navbar.scrolled .nav-links a{
+      color:var(--text);
+    }
+
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-6px;
+      width:0;
+      height:2px;
+      background:var(--primary-2);
+      transition:0.25s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after{
+      width:100%;
+    }
+
+    .toggle-btn,
+    .menu-btn{
+      border:none;
+      outline:none;
+      cursor:pointer;
+      border-radius:999px;
+      transition:0.3s ease;
+      font-family:inherit;
+    }
+
+    .toggle-btn{
+      background:rgba(255,255,255,0.15);
+      color:#fff;
+      padding:10px 14px;
+      font-size:0.95rem;
+      border:1px solid rgba(255,255,255,0.16);
+    }
+
+    .navbar.scrolled .toggle-btn{
+      color:var(--text);
+      background:var(--bg-soft);
+      border:1px solid var(--border);
+    }
+
+    .menu-btn{
+      display:none;
+      background:var(--primary);
+      color:#fff;
+      padding:10px 14px;
+    }
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      position:relative;
+      background:
+        var(--hero-overlay),
+        url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+      color:#fff;
+      overflow:hidden;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(126, 217, 87, 0.18), transparent 28%),
+        radial-gradient(circle at 80% 20%, rgba(196, 154, 108, 0.18), transparent 25%);
+      pointer-events:none;
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:1;
+      max-width:760px;
+      padding-top:80px;
+    }
+
+    .hero h1{
+      font-size:clamp(2.5rem, 6vw, 4.8rem);
+      line-height:1.08;
+      margin-bottom:18px;
+      font-weight:800;
+    }
+
+    .hero p{
+      font-size:1.08rem;
+      max-width:640px;
+      color:rgba(255,255,255,0.92);
+      margin-bottom:30px;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-bottom:34px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:14px 24px;
+      border-radius:999px;
+      font-weight:600;
+      transition:0.3s ease;
+      border:none;
+      cursor:pointer;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--primary), var(--primary-2));
+      color:#fff;
+      box-shadow:0 10px 24px rgba(46,125,50,0.28);
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-3px);
+      box-shadow:0 14px 28px rgba(46,125,50,0.35);
+    }
+
+    .btn-outline{
+      color:#fff;
+      border:1px solid rgba(255,255,255,0.35);
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(8px);
+    }
+
+    .btn-outline:hover{
+      transform:translateY(-3px);
+      background:rgba(255,255,255,0.15);
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(140px, 1fr));
+      gap:18px;
+      max-width:760px;
+    }
+
+    .hero-stat{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.14);
+      backdrop-filter:blur(10px);
+      border-radius:20px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-stat h3{
+      font-size:1.8rem;
+      margin-bottom:4px;
+    }
+
+    .hero-stat p{
+      margin:0;
+      font-size:0.92rem;
+      color:rgba(255,255,255,0.88);
+    }
+
+    .grid{
+      display:grid;
+      gap:24px;
+    }
+
+    .about-grid{
+      grid-template-columns:1.2fr 0.8fr;
+      align-items:center;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:24px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+      transition:transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+    }
+
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 18px 34px rgba(0,0,0,0.10);
+    }
+
+    .about-text p{
+      color:var(--muted);
+      margin-bottom:14px;
+    }
+
+    .soil-importance{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .mini-feature{
+      background:linear-gradient(180deg, rgba(76,175,80,0.08), rgba(141,110,99,0.07));
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .mini-feature h4{
+      margin-bottom:6px;
+      color:var(--text);
+    }
+
+    .mini-feature p{
+      margin:0;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    .image-card{
+      overflow:hidden;
+      padding:0;
+    }
+
+    .image-card img{
+      width:100%;
+      height:100%;
+      min-height:420px;
+      object-fit:cover;
+    }
+
+    .stats-strip{
+      margin-top:40px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+    }
+
+    .stat-box{
+      text-align:center;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:24px 18px;
+      box-shadow:var(--shadow);
+    }
+
+    .stat-box h3{
+      color:var(--primary);
+      font-size:2rem;
+      margin-bottom:8px;
+    }
+
+    .stat-box p{
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    .condition-layout{
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .condition-cards{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:18px;
+      margin-top:24px;
+    }
+
+    .condition-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:20px;
+      box-shadow:var(--shadow);
+      transition:0.3s ease;
+    }
+
+    .condition-card:hover{
+      transform:translateY(-6px) scale(1.01);
+    }
+
+    .condition-card span{
+      display:inline-flex;
+      width:48px;
+      height:48px;
+      align-items:center;
+      justify-content:center;
+      border-radius:14px;
+      font-size:1.4rem;
+      margin-bottom:14px;
+      background:rgba(76,175,80,0.12);
+    }
+
+    .condition-card h4{
+      margin-bottom:8px;
+    }
+
+    .condition-card p{
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    .chart-card{
+      min-height:100%;
+    }
+
+    .chart-wrap{
+      position:relative;
+      height:360px;
+    }
+
+    .soil-meter{
+      margin-top:20px;
+      padding:18px;
+      border-radius:18px;
+      background:linear-gradient(135deg, rgba(46,125,50,0.10), rgba(141,110,99,0.10));
+      border:1px solid var(--border);
+    }
+
+    .meter-head{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+      flex-wrap:wrap;
+    }
+
+    .meter-bar{
+      width:100%;
+      height:14px;
+      background:rgba(0,0,0,0.08);
+      border-radius:999px;
+      overflow:hidden;
+    }
+
+    .meter-fill{
+      height:100%;
+      width:42%;
+      background:linear-gradient(90deg, #d32f2f, #f9a825, #43a047);
+      border-radius:999px;
+      transition:width 1.2s ease;
+    }
+
+    .causes-grid,
+    .effects-grid,
+    .solutions-grid,
+    .gallery-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+    }
+
+    .icon-card{
+      position:relative;
+      overflow:hidden;
+    }
+
+    .icon-card::before{
+      content:"";
+      position:absolute;
+      inset:auto -30px -30px auto;
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(76,175,80,0.12), transparent 60%);
+      pointer-events:none;
+    }
+
+    .icon{
+      width:58px;
+      height:58px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      font-size:1.6rem;
+      margin-bottom:16px;
+      background:linear-gradient(135deg, rgba(46,125,50,0.14), rgba(141,110,99,0.14));
+      border:1px solid var(--border);
+    }
+
+    .icon-card h3{
+      margin-bottom:8px;
+      font-size:1.1rem;
+    }
+
+    .icon-card p{
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    .quote-box{
+      margin:40px auto 0;
+      max-width:860px;
+      background:linear-gradient(135deg, rgba(46,125,50,0.12), rgba(141,110,99,0.16));
+      border:1px solid var(--border);
+      border-radius:24px;
+      padding:28px;
+      text-align:center;
+      box-shadow:var(--shadow);
+    }
+
+    .quote-box blockquote{
+      font-size:clamp(1.2rem, 2.8vw, 2rem);
+      font-weight:700;
+      color:var(--text);
+    }
+
+    .tips-box{
+      margin-top:26px;
+      text-align:center;
+      padding:18px;
+      border-radius:18px;
+      background:var(--card);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+    }
+
+    .tips-box h4{
+      margin-bottom:8px;
+      color:var(--primary);
+    }
+
+    .tip-text{
+      color:var(--muted);
+      font-weight:500;
+    }
+
+    .gallery-grid .gallery-item{
+      border-radius:22px;
+      overflow:hidden;
+      position:relative;
+      min-height:240px;
+      box-shadow:var(--shadow);
+    }
+
+    .gallery-grid img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform 0.55s ease;
+    }
+
+    .gallery-item:hover img{
+      transform:scale(1.08);
+    }
+
+    .gallery-overlay{
+      position:absolute;
+      inset:auto 0 0 0;
+      padding:18px;
+      color:#fff;
+      background:linear-gradient(to top, rgba(0,0,0,0.72), transparent);
+      font-weight:600;
+    }
+
+    .contact-wrap{
+      display:grid;
+      grid-template-columns:0.9fr 1.1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .contact-info p{
+      color:var(--muted);
+      margin-bottom:14px;
+    }
+
+    .contact-points{
+      display:grid;
+      gap:14px;
+      margin-top:20px;
+    }
+
+    .contact-point{
+      display:flex;
+      align-items:flex-start;
+      gap:14px;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:16px;
+      box-shadow:var(--shadow);
+    }
+
+    .contact-form{
+      display:grid;
+      gap:16px;
+    }
+
+    .input-group{
+      display:grid;
+      gap:8px;
+    }
+
+    label{
+      font-weight:600;
+      font-size:0.95rem;
+    }
+
+    input, textarea{
+      width:100%;
+      padding:14px 16px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,0.7);
+      color:var(--text);
+      font:inherit;
+      outline:none;
+      transition:0.25s ease;
+    }
+
+    body.dark input,
+    body.dark textarea{
+      background:rgba(255,255,255,0.04);
+      color:var(--text);
+    }
+
+    input:focus, textarea:focus{
+      border-color:var(--primary);
+      box-shadow:0 0 0 4px rgba(76,175,80,0.12);
+    }
+
+    textarea{
+      resize:vertical;
+      min-height:140px;
+    }
+
+    .form-message{
+      display:none;
+      padding:14px 16px;
+      border-radius:14px;
+      background:rgba(76,175,80,0.12);
+      color:var(--primary);
+      font-weight:600;
+      border:1px solid var(--border);
+    }
+
+    footer{
+      background:linear-gradient(180deg, rgba(46,125,50,0.08), rgba(141,110,99,0.08));
+      border-top:1px solid var(--border);
+      padding:26px 0;
+    }
+
+    .footer-wrap{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .footer-wrap p{
+      color:var(--muted);
+    }
+
+    .socials{
+      display:flex;
+      gap:12px;
+    }
+
+    .socials a{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:var(--card);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      transition:0.3s ease;
+      font-size:1.1rem;
+    }
+
+    .socials a:hover{
+      transform:translateY(-4px);
+      background:var(--primary);
+      color:#fff;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(34px);
+      transition:opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.active{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .floating-leaf{
+      position:absolute;
+      width:18px;
+      height:18px;
+      background:linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius:60% 40% 60% 40%;
+      opacity:0.18;
+      animation:floatLeaf 7s ease-in-out infinite;
+      filter:blur(0.2px);
+    }
+
+    .leaf-1{ top:12%; right:10%; animation-delay:0s; }
+    .leaf-2{ bottom:18%; left:6%; animation-delay:1.2s; }
+    .leaf-3{ top:56%; right:16%; animation-delay:2.1s; }
+
+    @keyframes floatLeaf{
+      0%,100%{ transform:translateY(0) rotate(0deg); }
+      50%{ transform:translateY(-16px) rotate(14deg); }
+    }
+
+    @media (max-width: 992px){
+      .about-grid,
+      .condition-layout,
+      .contact-wrap{
+        grid-template-columns:1fr;
+      }
+
+      .causes-grid,
+      .effects-grid,
+      .solutions-grid,
+      .gallery-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .stats-strip{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .hero-stats{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 768px){
+      .menu-btn{
+        display:inline-flex;
+      }
+
+      .nav-links{
+        position:absolute;
+        top:72px;
+        left:4%;
+        right:4%;
+        background:var(--card);
+        border:1px solid var(--border);
+        border-radius:18px;
+        box-shadow:var(--shadow);
+        padding:18px;
+        display:none;
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .nav-links.show{
+        display:flex;
+      }
+
+      .nav-links a,
+      .navbar.scrolled .nav-links a{
+        color:var(--text);
+        width:100%;
+      }
+
+      .toggle-btn{
+        padding:9px 12px;
+      }
+
+      .condition-cards,
+      .soil-importance,
+      .causes-grid,
+      .effects-grid,
+      .solutions-grid,
+      .gallery-grid,
+      .stats-strip{
+        grid-template-columns:1fr;
+      }
+
+      .hero{
+        text-align:left;
+      }
+
+      .hero-actions{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="container nav-wrap">
+      <a href="#home" class="logo">🌱 SoilAware</a>
+
+      <nav class="nav-links" id="navLinks" aria-label="Main Navigation">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About Soil Pollution</a>
+        <a href="#condition">Current Soil Condition</a>
+        <a href="#causes">Causes</a>
+        <a href="#effects">Effects</a>
+        <a href="#solutions">Solutions</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div style="display:flex; gap:10px; align-items:center;">
+        <button class="toggle-btn" id="themeToggle" aria-label="Toggle dark and light mode">🌙 Mode</button>
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <span class="floating-leaf leaf-1"></span>
+    <span class="floating-leaf leaf-2"></span>
+    <span class="floating-leaf leaf-3"></span>
+
+    <div class="container hero-content reveal">
+      <span class="badge">Protect Earth from the Ground Up</span>
+      <h1>Save Soil, Save Life</h1>
+      <p>
+        Healthy soil is the silent force behind food, clean water, biodiversity, and human survival.
+        By understanding soil pollution and taking action today, we can protect future generations
+        and build a greener, safer planet.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#about" class="btn btn-primary">Learn More</a>
+        <a href="#solutions" class="btn btn-outline">Explore Solutions</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <h3><span class="counter" data-target="33">0</span>%</h3>
+          <p>Of Earth’s soil is moderately to highly degraded.</p>
+        </div>
+        <div class="hero-stat">
+          <h3><span class="counter" data-target="24">0</span>M+</h3>
+          <p>Hectares of fertile soil can be lost globally each year through degradation and erosion.</p>
+        </div>
+        <div class="hero-stat">
+          <h3><span class="counter" data-target="100">0</span>+</h3>
+          <p>Years may be needed to naturally rebuild just a few centimeters of topsoil.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="container">
+      <div class="about-grid grid">
+        <div class="about-text reveal">
+          <span class="badge">About Soil Pollution</span>
+          <h2 class="section-title" style="text-align:left; margin-bottom:18px;">What is Soil Pollution?</h2>
+          <p>
+            Soil pollution occurs when harmful substances such as toxic chemicals, pesticides, heavy metals,
+            plastics, oil residues, and industrial waste contaminate the land. These pollutants damage the natural
+            balance of soil and reduce its ability to support healthy ecosystems.
+          </p>
+          <p>
+            Activities like excessive chemical farming, dumping non-biodegradable waste, mining, industrial discharge,
+            and deforestation weaken soil structure and fertility. Over time, the land becomes less productive,
+            more vulnerable to erosion, and unsafe for agriculture.
+          </p>
+          <p>
+            Soil is essential because it supports crop growth, stores carbon, filters water, recycles nutrients,
+            and sustains millions of organisms that maintain ecological balance.
+          </p>
+
+          <div class="soil-importance">
+            <div class="mini-feature">
+              <h4>🌾 Agriculture</h4>
+              <p>Healthy soil provides nutrients that crops need for better yield and better food quality.</p>
+            </div>
+            <div class="mini-feature">
+              <h4>💧 Water Filtration</h4>
+              <p>Soil helps purify and regulate water before it reaches rivers, lakes, and groundwater.</p>
+            </div>
+            <div class="mini-feature">
+              <h4>🌍 Environment</h4>
+              <p>It stores carbon, supports plant life, and helps regulate climate and natural cycles.</p>
+            </div>
+            <div class="mini-feature">
+              <h4>🐛 Biodiversity</h4>
+              <p>Countless organisms live in soil and play vital roles in decomposition and nutrient recycling.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card image-card reveal">
+          <img
+            src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1200&q=80"
+            alt="Hands holding healthy soil with a small plant growing"
+          />
+        </div>
+      </div>
+
+      <div class="stats-strip">
+        <div class="stat-box reveal">
+          <h3><span class="counter" data-target="33">0</span>%</h3>
+          <p>Global soil degradation concern</p>
+        </div>
+        <div class="stat-box reveal">
+          <h3><span class="counter" data-target="95">0</span>%</h3>
+          <p>Food production depends directly or indirectly on soil</p>
+        </div>
+        <div class="stat-box reveal">
+          <h3><span class="counter" data-target="75">0</span>%</h3>
+          <p>Land ecosystems rely on healthy soil systems</p>
+        </div>
+        <div class="stat-box reveal">
+          <h3><span class="counter" data-target="1">0</span> cm</h3>
+          <p>Topsoil can take decades to centuries to form naturally</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="condition">
+    <div class="container">
+      <span class="badge" style="display:block; width:max-content; margin:0 auto 16px;">Current Soil Condition</span>
+      <h2 class="section-title reveal">Understanding the Present State of Soil</h2>
+      <p class="section-subtitle reveal">
+        Soil health is being weakened by contamination, erosion, unsustainable farming, and climate stress.
+        The patterns below show how human activity is gradually reducing the soil’s ability to support life.
+      </p>
+
+      <div class="condition-layout">
+        <div class="reveal">
+          <div class="condition-cards">
+            <div class="condition-card">
+              <span>🧪</span>
+              <h4>Increasing Chemical Contamination</h4>
+              <p>Industrial chemicals, fertilizers, and pesticides accumulate in the soil and reduce biological activity.</p>
+            </div>
+            <div class="condition-card">
+              <span>🌲</span>
+              <h4>Soil Erosion from Deforestation</h4>
+              <p>Without tree roots to hold land together, valuable topsoil is washed or blown away more easily.</p>
+            </div>
+            <div class="condition-card">
+              <span>🌾</span>
+              <h4>Loss of Soil Fertility</h4>
+              <p>Overuse and mismanagement strip the soil of organic matter and nutrients required for crop growth.</p>
+            </div>
+            <div class="condition-card">
+              <span>📉</span>
+              <h4>Reduced Agricultural Productivity</h4>
+              <p>Polluted and degraded soil produces weaker crops, lower yields, and poor food quality.</p>
+            </div>
+            <div class="condition-card">
+              <span>🔥</span>
+              <h4>Climate Change Impact</h4>
+              <p>Changing rainfall, heat, and drought patterns worsen soil dryness, salinity, and erosion.</p>
+            </div>
+            <div class="condition-card">
+              <span>♻️</span>
+              <h4>Waste Accumulation</h4>
+              <p>Plastic residues and unmanaged waste alter soil texture and introduce long-term pollutants.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card chart-card reveal">
+          <h3 style="margin-bottom:14px;">Soil Degradation Indicators</h3>
+          <p style="color:var(--muted); margin-bottom:16px;">
+            A simple awareness chart showing how different degradation pressures are affecting soil systems.
+          </p>
+          <div class="chart-wrap">
+            <canvas id="soilChart" aria-label="Soil condition chart" role="img"></canvas>
+          </div>
+
+          <div class="soil-meter">
+            <div class="meter-head">
+              <strong>Live Soil Quality Meter</strong>
+              <span id="meterLabel">Moderate Risk</span>
+            </div>
+            <div class="meter-bar" aria-hidden="true">
+              <div class="meter-fill" id="meterFill"></div>
+            </div>
+            <p style="margin-top:10px; color:var(--muted); font-size:0.94rem;">
+              Simulated awareness meter showing how pollution pressure can lower soil quality.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="causes">
+    <div class="container">
+      <span class="badge" style="display:block; width:max-content; margin:0 auto 16px;">Major Causes</span>
+      <h2 class="section-title reveal">What Causes Soil Pollution?</h2>
+      <p class="section-subtitle reveal">
+        Soil pollution develops through repeated harmful activities that deposit toxins, disturb natural soil processes,
+        and reduce land productivity over time.
+      </p>
+
+      <div class="causes-grid">
+        <div class="card icon-card reveal">
+          <div class="icon">🏭</div>
+          <h3>Industrial Waste</h3>
+          <p>Factories may release heavy metals, toxic sludge, and chemicals that contaminate nearby land.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">🧴</div>
+          <h3>Excessive Pesticide Use</h3>
+          <p>Overuse of pesticides and chemical sprays harms soil organisms and disrupts nutrient cycles.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">🛍️</div>
+          <h3>Plastic Pollution</h3>
+          <p>Plastic waste and microplastics persist for long periods and weaken soil structure and quality.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">⛏️</div>
+          <h3>Mining Activities</h3>
+          <p>Mining exposes harmful materials, destroys land cover, and leaves contaminated residues behind.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">🛢️</div>
+          <h3>Oil Spills</h3>
+          <p>Oil forms a toxic layer in soil, preventing air and water movement and damaging plant growth.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">🌳</div>
+          <h3>Deforestation</h3>
+          <p>Removing forests accelerates erosion, lowers moisture retention, and reduces natural soil recovery.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="effects">
+    <div class="container">
+      <span class="badge" style="display:block; width:max-content; margin:0 auto 16px;">Impact on Life</span>
+      <h2 class="section-title reveal">Effects of Soil Pollution</h2>
+      <p class="section-subtitle reveal">
+        Soil pollution affects food systems, human health, biodiversity, and long-term environmental stability.
+      </p>
+
+      <div class="effects-grid">
+        <div class="card icon-card reveal">
+          <div class="icon">🥀</div>
+          <h3>Reduced Crop Quality</h3>
+          <p>Contaminated soil leads to poor nutrient uptake, weak plant growth, and lower agricultural output.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">💧</div>
+          <h3>Water Contamination</h3>
+          <p>Pollutants can seep into groundwater and water bodies, spreading contamination beyond the land itself.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">⚕️</div>
+          <h3>Health Problems</h3>
+          <p>Toxins in soil may enter the food chain and create health risks for humans and animals.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">🦋</div>
+          <h3>Loss of Biodiversity</h3>
+          <p>Microorganisms, insects, plants, and animals decline when soil ecosystems become unsafe.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">🏜️</div>
+          <h3>Desertification</h3>
+          <p>Long-term degradation can turn productive land into dry, barren areas with low biological activity.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">🌡️</div>
+          <h3>Climate Imbalance</h3>
+          <p>Damaged soil stores less carbon, making it harder for ecosystems to regulate climate naturally.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="solutions">
+    <div class="container">
+      <span class="badge" style="display:block; width:max-content; margin:0 auto 16px;">Improve Soil Condition</span>
+      <h2 class="section-title reveal">Practical Solutions for Healthy Soil</h2>
+      <p class="section-subtitle reveal">
+        Protecting soil requires both community action and sustainable daily practices. Small changes can create a lasting impact.
+      </p>
+
+      <div class="solutions-grid">
+        <div class="card icon-card reveal">
+          <div class="icon">🌿</div>
+          <h3>Organic Farming</h3>
+          <p>Natural fertilizers and eco-friendly pest control methods help maintain soil fertility and biodiversity.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">🚯</div>
+          <h3>Reducing Plastic Waste</h3>
+          <p>Limiting disposable plastic prevents long-term buildup of harmful waste in the land.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">🌱</div>
+          <h3>Tree Plantation</h3>
+          <p>Trees protect topsoil, increase moisture retention, and reduce erosion caused by wind and rain.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">🍂</div>
+          <h3>Composting</h3>
+          <p>Organic compost enriches soil naturally and improves texture, microbial life, and nutrient content.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">🔄</div>
+          <h3>Crop Rotation</h3>
+          <p>Changing crop types seasonally helps restore nutrients and reduces dependence on chemicals.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">🗑️</div>
+          <h3>Proper Waste Management</h3>
+          <p>Separating, recycling, and safely disposing waste keeps harmful materials away from productive land.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">🧪</div>
+          <h3>Reducing Chemical Fertilizers</h3>
+          <p>Balanced use of fertilizers prevents nutrient imbalance and chemical overload in soil ecosystems.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">🌧️</div>
+          <h3>Rainwater Harvesting</h3>
+          <p>Efficient water conservation helps soil stay productive and reduces dryness in vulnerable regions.</p>
+        </div>
+        <div class="card icon-card reveal">
+          <div class="icon">🤝</div>
+          <h3>Community Awareness</h3>
+          <p>Education and awareness campaigns encourage shared responsibility for land conservation.</p>
+        </div>
+      </div>
+
+      <div class="quote-box reveal">
+        <blockquote>“Healthy soil is the foundation of healthy life.”</blockquote>
+      </div>
+
+      <div class="tips-box reveal">
+        <h4>Eco Tip of the Moment</h4>
+        <p class="tip-text" id="ecoTip">Use compost at home to naturally improve soil structure and reduce waste.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="gallery">
+    <div class="container">
+      <span class="badge" style="display:block; width:max-content; margin:0 auto 16px;">Image Gallery</span>
+      <h2 class="section-title reveal">Soil Conservation in Action</h2>
+      <p class="section-subtitle reveal">
+        Visual inspiration showing the beauty of healthy land, farming, reforestation, and sustainable agriculture.
+      </p>
+
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1200&q=80" alt="Young plants growing in fertile soil" />
+          <div class="gallery-overlay">Fertile soil supports new life</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1461354464878-ad92f492a5a0?auto=format&fit=crop&w=1200&q=80" alt="Farmland with healthy green crops" />
+          <div class="gallery-overlay">Healthy farmland begins with healthy soil</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1200&q=80" alt="Natural green environment showing ecological balance" />
+          <div class="gallery-overlay">Biodiversity depends on living soil</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1492496913980-501348b61469?auto=format&fit=crop&w=1200&q=80" alt="Person planting a tree to reduce erosion and restore land" />
+          <div class="gallery-overlay">Tree plantation restores land health</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1200&q=80" alt="Agricultural field managed with sustainable practices" />
+          <div class="gallery-overlay">Sustainable farming protects future harvests</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=1200&q=80" alt="Hands holding soil and a small plant symbolizing conservation" />
+          <div class="gallery-overlay">Protect soil for future generations</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container">
+      <span class="badge" style="display:block; width:max-content; margin:0 auto 16px;">Get Involved</span>
+      <h2 class="section-title reveal">Contact and Feedback</h2>
+      <p class="section-subtitle reveal">
+        Share your thoughts, suggestions, or ideas for promoting soil conservation in your community.
+      </p>
+
+      <div class="contact-wrap">
+        <div class="contact-info reveal">
+          <div class="card">
+            <h3 style="margin-bottom:12px;">Why Your Voice Matters</h3>
+            <p>
+              Awareness is the first step toward change. Whether you are a student, teacher, farmer,
+              or environmental enthusiast, your actions can inspire better care for the land beneath us.
+            </p>
+            <p>
+              Use this form to send feedback, project ideas, or suggestions for making this awareness campaign stronger.
+            </p>
+
+            <div class="contact-points">
+              <div class="contact-point">
+                <div class="icon" style="margin:0; width:46px; height:46px;">📍</div>
+                <div>
+                  <strong>Mission</strong>
+                  <p style="margin:4px 0 0; color:var(--muted);">Promote clean land, sustainable farming, and responsible waste management.</p>
+                </div>
+              </div>
+              <div class="contact-point">
+                <div class="icon" style="margin:0; width:46px; height:46px;">🌎</div>
+                <div>
+                  <strong>Awareness Goal</strong>
+                  <p style="margin:4px 0 0; color:var(--muted);">Encourage communities to protect soil as a life-support system.</p>
+                </div>
+              </div>
+              <div class="contact-point">
+                <div class="icon" style="margin:0; width:46px; height:46px;">💬</div>
+                <div>
+                  <strong>Community Action</strong>
+                  <p style="margin:4px 0 0; color:var(--muted);">Share practical ideas that schools and neighborhoods can apply locally.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <form class="contact-form" id="contactForm">
+            <div class="input-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Enter your name" required />
+            </div>
+
+            <div class="input-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="Enter your email" required />
+            </div>
+
+            <div class="input-group">
+              <label for="message">Your Feedback</label>
+              <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Send Feedback</button>
+            <div class="form-message" id="formMessage">Thank you for your feedback. Together, we can protect our soil.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-wrap">
+      <p>© 2026 SoilAware. Protecting soil, protecting life.</p>
+      <div class="socials" aria-label="Social Media Links">
+        <a href="#" aria-label="Facebook">📘</a>
+        <a href="#" aria-label="Instagram">📷</a>
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="YouTube">▶️</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById("navbar");
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+    const themeToggle = document.getElementById("themeToggle");
+    const reveals = document.querySelectorAll(".reveal");
+    const navAnchors = document.querySelectorAll(".nav-links a");
+    const sections = document.querySelectorAll("section[id]");
+    const counters = document.querySelectorAll(".counter");
+    const form = document.getElementById("contactForm");
+    const formMessage = document.getElementById("formMessage");
+    const ecoTip = document.getElementById("ecoTip");
+    const meterFill = document.getElementById("meterFill");
+    const meterLabel = document.getElementById("meterLabel");
+
+    const ecoTips = [
+      "Use compost at home to naturally improve soil structure and reduce waste.",
+      "Plant native trees to reduce erosion and improve long-term soil stability.",
+      "Avoid burning waste because toxic residues can settle into the soil.",
+      "Reduce plastic use to prevent long-lasting pollution in agricultural land.",
+      "Practice crop rotation to maintain nutrients and support living soil."
+    ];
+
+    let tipIndex = 0;
+
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
+
+    navAnchors.forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("show");
+      });
+    });
+
+    window.addEventListener("scroll", () => {
+      navbar.classList.toggle("scrolled", window.scrollY > 40);
+
+      let current = "";
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 120;
+        const sectionHeight = section.offsetHeight;
+        if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navAnchors.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href").includes(current)) {
+          link.classList.add("active");
+        }
+      });
+    });
+
+    function revealOnScroll() {
+      const triggerBottom = window.innerHeight * 0.88;
+      reveals.forEach(item => {
+        const boxTop = item.getBoundingClientRect().top;
+        if (boxTop < triggerBottom) {
+          item.classList.add("active");
+        }
+      });
+    }
+
+    revealOnScroll();
+    window.addEventListener("scroll", revealOnScroll);
+
+    function animateCounter(counter) {
+      const target = +counter.getAttribute("data-target");
+      let count = 0;
+      const increment = Math.max(1, Math.ceil(target / 80));
+
+      function update() {
+        count += increment;
+        if (count > target) count = target;
+        counter.innerText = count;
+        if (count < target) {
+          requestAnimationFrame(update);
+        }
+      }
+      update();
+    }
+
+    const counterObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const counter = entry.target;
+          if (!counter.classList.contains("counted")) {
+            animateCounter(counter);
+            counter.classList.add("counted");
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(counter => counterObserver.observe(counter));
+
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      const darkEnabled = document.body.classList.contains("dark");
+      themeToggle.innerHTML = darkEnabled ? "☀️ Mode" : "🌙 Mode";
+      localStorage.setItem("soil-theme", darkEnabled ? "dark" : "light");
+    });
+
+    const savedTheme = localStorage.getItem("soil-theme");
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark");
+      themeToggle.innerHTML = "☀️ Mode";
+    }
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      formMessage.style.display = "block";
+      form.reset();
+      setTimeout(() => {
+        formMessage.style.display = "none";
+      }, 3500);
+    });
+
+    setInterval(() => {
+      tipIndex = (tipIndex + 1) % ecoTips.length;
+      ecoTip.style.opacity = 0;
+      setTimeout(() => {
+        ecoTip.textContent = ecoTips[tipIndex];
+        ecoTip.style.opacity = 1;
+      }, 250);
+    }, 4000);
+
+    const meterValues = [
+      { width: "42%", label: "Moderate Risk" },
+      { width: "55%", label: "Warning Level" },
+      { width: "38%", label: "Moderate Risk" },
+      { width: "62%", label: "High Concern" },
+      { width: "47%", label: "Moderate Risk" }
+    ];
+
+    let meterIndex = 0;
+    setInterval(() => {
+      meterIndex = (meterIndex + 1) % meterValues.length;
+      meterFill.style.width = meterValues[meterIndex].width;
+      meterLabel.textContent = meterValues[meterIndex].label;
+    }, 3000);
+
+    const ctx = document.getElementById("soilChart");
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: [
+          "Loss of Fertility",
+          "Chemical Contamination",
+          "Soil Erosion",
+          "Low Productivity",
+          "Climate Impact"
+        ],
+        datasets: [{
+          label: "Impact Level",
+          data: [78, 84, 72, 69, 76],
+          backgroundColor: [
+            "rgba(76, 175, 80, 0.75)",
+            "rgba(141, 110, 99, 0.75)",
+            "rgba(102, 187, 106, 0.75)",
+            "rgba(161, 136, 127, 0.75)",
+            "rgba(67, 160, 71, 0.75)"
+          ],
+          borderColor: [
+            "#4caf50",
+            "#8d6e63",
+            "#66bb6a",
+            "#a1887f",
+            "#43a047"
+          ],
+          borderWidth: 1.5,
+          borderRadius: 12
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: true,
+            labels: {
+              color: getComputedStyle(document.body).getPropertyValue("--text").trim()
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return " Impact Level: " + context.raw + "%";
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+            grid: {
+              color: "rgba(120,120,120,0.12)"
+            },
+            ticks: {
+              color: getComputedStyle(document.body).getPropertyValue("--muted").trim()
+            }
+          },
+          x: {
+            grid: {
+              display: false
+            },
+            ticks: {
+              color: getComputedStyle(document.body).getPropertyValue("--muted").trim()
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
